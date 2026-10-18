@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante Avenida - Cardápio & Marmitex</title>
+  
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #121316;
+      --card-dark: #1c1e24;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-gold: #e5a93c;
+      --accent-gold-hover: #f5ba4c;
+      --primary-red: #d9381e;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --whatsapp: #25d366;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Top Announcement Bar */
+    .announcement-bar {
+      background: linear-gradient(90deg, #b91c1c, #d97706);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 8px 16px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Header Hero Section */
+    header {
+      position: relative;
+      background: radial-gradient(circle at top center, rgba(229, 169, 60, 0.15) 0%, transparent 70%),
+                  linear-gradient(rgba(18, 19, 22, 0.75), rgba(18, 19, 22, 0.95)),
+                  url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      padding: 60px 20px 80px;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .brand-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 169, 60, 0.15);
+      border: 1px solid rgba(229, 169, 60, 0.3);
+      color: var(--accent-gold);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .phone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 211, 102, 0.2);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: var(--whatsapp);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .phone-badge:hover {
+      background: rgba(37, 211, 102, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .brand-title span {
+      color: var(--accent-gold);
+      font-style: italic;
+    }
+
+    .brand-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 24px;
+      font-weight: 400;
+    }
+
+    /* Container Global */
+    .main-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Grid de Preços */
+    .prices-section {
+      margin-top: -40px;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .prices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .price-card {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(229, 169, 60, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .price-card.highlight {
+      background: linear-gradient(145deg, #242730, #1c1e24);
+      border: 2px solid var(--accent-gold);
+    }
+
+    .price-card.highlight::before {
+      content: 'Mais Pedido';
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: var(--accent-gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      padding: 4px 30px;
+      transform: rotate(45deg);
+    }
+
+    .price-title {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .price-tag {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .price-tag span {
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+    }
+
+    .price-desc {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Banner Especial Sábado */
+    .feijoada-banner {
+      background: linear-gradient(135deg, rgba(217, 56, 30, 0.15), rgba(229, 169, 60, 0.1)), var(--card-dark);
+      border: 1px solid rgba(229, 169, 60, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: relative;
+    }
+
+    .feijoada-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feijoada-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .feijoada-badge {
+      background: var(--primary-red);
+      color: white;
+      font-weight: 800;
+      font-size: 1.8rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(217, 56, 30, 0.3);
+    }
+
+    /* Section Title */
+    .section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #ffffff;
+    }
+
+    /* Tabs dos Dias */
+    .day-selector {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 30px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-gold) var(--bg-dark);
+    }
+
+    .day-btn {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .day-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--text-main);
+    }
+
+    .day-btn.active {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 15px rgba(229, 169, 60, 0.3);
+    }
+
+    .day-btn.is-today::after {
+      content: 'HOJE';
+      background: var(--primary-red);
+      color: white;
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border-radius: 8px;
+      margin-left: 4px;
+    }
+
+    /* Cardápio Exibição */
+    .menu-display {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 35px;
+      margin-bottom: 50px;
+    }
+
+    .menu-header-day {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-column-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dishes-list {
+      list-style: none;
+    }
+
+    .dish-item {
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dish-item i {
+      color: var(--accent-gold);
+      font-size: 0.75rem;
+    }
+
+    .menu-notes-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      margin-top: 20px;
+    }
+
+    .note-tag {
+      color: #ef4444;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Observação das marmitas de Feijoada */
+    .feijoada-marmita-notice {
+      background: rgba(229, 169, 60, 0.1);
+      border: 1px solid rgba(229, 169, 60, 0.3);
+      color: var(--accent-gold);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Avisos de Endereço Salvo */
+    .saved-address-badge {
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      color: var(--whatsapp);
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-clear-address {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.78rem;
+      text-decoration: underline;
+      margin-left: 10px;
+    }
+
+    /* Lista Dinâmica de Bebidas */
+    .drink-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .drink-row select {
+      flex: 2;
+    }
+
+    .drink-row input {
+      flex: 1;
+    }
+
+    .btn-remove-drink {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .btn-remove-drink:hover {
+      background: rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-add-drink {
+      background: rgba(229, 169, 60, 0.15);
+      border: 1px dashed var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-add-drink:hover {
+      background: rgba(229, 169, 60, 0.3);
+    }
+
+    /* Simulador de Pedido */
+    .order-box {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 35px;
+    }
+
+    .form-section-subtitle {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-top: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .form-control {
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      color: white;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .form-control option, .form-control optgroup {
+      background-color: var(--bg-dark);
+      color: white;
+    }
+
+    /* Resumo do Valor Total */
+    .total-summary-card {
+      background: linear-gradient(145deg, rgba(229, 169, 60, 0.1), rgba(217, 56, 30, 0.05));
+      border: 1px solid rgba(229, 169, 60, 0.3);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .summary-row.total-final {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+      margin-top: 8px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .summary-row.total-final span:last-child {
+      color: var(--accent-gold);
+    }
+
+    /* Troco Container Smooth Transition */
+    #trocoContainer {
+      display: none;
+      transition: var(--transition);
+    }
+
+    .btn-submit-order {
+      width: 100%;
+      background: var(--whatsapp);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+      margin-top: 20px;
+    }
+
+    .btn-submit-order:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 60px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer a {
+      color: var(--whatsapp);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .brand-title {
+        font-size: 2.3rem;
+      }
+      .feijoada-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .menu-display {
+        padding: 20px;
+      }
+      .drink-row {
+        flex-direction: column;
+      }
+      .drink-row select, .drink-row input, .btn-remove-drink {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <div class="announcement-bar">
+    <i class="fa-solid fa-utensils"></i>
+    <span>Marmitex caseira feita diariamente com ingredientes frescos e selecionados!</span>
+  </div>
+
+  <!-- Hero Header -->
+  <header>
+    <div class="hero-content">
+      <div class="brand-badges">
+        <div class="brand-badge">
+          <i class="fa-solid fa-crown"></i> Qualidade & Sabor
+        </div>
+        <a href="https://wa.me/5542998625609" target="_blank" class="phone-badge">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>(42) 99862-5609</span>
+        </a>
+      </div>
+
+      <h1 class="brand-title">RESTAURANTE <span>AVENIDA</span></h1>
+      <p class="brand-subtitle">Tradição em servir bem. Confira nosso cardápio semanal completo e monte seu pedido rapidamente abaixo.</p>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- Tabela de Preços -->
+    <section class="prices-section">
+      <div class="prices-grid">
+        <div class="price-card">
+          <div class="price-title">Marmita Pequena</div>
+          <div class="price-tag"><span>R$</span> 14,00</div>
+          <div class="price-desc">Feijoada Pequena: R$ 15,00</div>
+        </div>
+
+        <div class="price-card highlight">
+          <div class="price-title">Marmita Média</div>
+          <div class="price-tag"><span>R$</span> 17,00</div>
+          <div class="price-desc">Feijoada Média: R$ 20,00</div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-title">Marmita Grande</div>
+          <div class="price-tag"><span>R$</span> 20,00</div>
+          <div class="price-desc">Feijoada Grande: R$ 23,00</div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-title">Adicional de Salada</div>
+          <div class="price-tag"><span>R$</span> 8,00</div>
+          <div class="price-desc">Porção extra selecionada</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner Destaque Sábado Feijoada -->
+    <div class="feijoada-banner">
+      <div class="feijoada-info">
+        <h3><i class="fa-solid fa-fire"></i> TODO SÁBADO TEM FEIJOADA DELICIOSA!</h3>
+        <p>Acompanha arroz, couve refogada, farofa, batata doce caramelizada, banana frita, frango assado, costela suína a pururuca e torresmo.</p>
+      </div>
+      <div class="feijoada-badge">
+        R$ 50,00
+        <div style="font-size: 0.7rem; font-weight: 500; text-align: center;">Porção Completa</div>
+      </div>
+    </div>
+
+    <!-- Navegação e Exibição do Cardápio Semanal -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Cardápio da Semana</h2>
+      </div>
+
+      <!-- Tabs dos Dias -->
+      <div class="day-selector" id="daySelector">
+        <button class="day-btn" data-day="segunda">Segunda-Feira</button>
+        <button class="day-btn" data-day="terca">Terça-Feira</button>
+        <button class="day-btn" data-day="quarta">Quarta-Feira</button>
+        <button class="day-btn" data-day="quinta">Quinta-Feira</button>
+        <button class="day-btn" data-day="sexta">Sexta-Feira</button>
+        <button class="day-btn" data-day="sabado">Sábado</button>
+      </div>
+
+      <!-- Conteúdo do Cardápio -->
+      <div class="menu-display">
+        <div class="menu-header-day">
+          <span id="menuDayTitle">Carregando cardápio...</span>
+          <i class="fa-solid fa-utensils" style="font-size: 1rem; color: var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+          <!-- Conteúdo populado pelo JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Monte e Envie seu Pedido -->
+    <section class="order-box">
+      <div class="section-header" style="text-align: left; margin-bottom: 25px;">
+        <h2 class="section-title" style="font-size: 1.6rem;">
+          <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp);"></i>
+          Monte seu Pedido Online - WhatsApp: (42) 99862-5609
+        </h2>
+      </div>
+
+      <form id="orderForm" onsubmit="sendOrder(event)">
+        
+        <!-- Detalhes da Marmita -->
+        <div class="form-section-subtitle">
+          <i class="fa-solid fa-box-open"></i> 1. Escolha a Marmita
+        </div>
+
+        <!-- Alerta dinâmico de Feijoada -->
+        <div id="feijoadaNotice" class="feijoada-marmita-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Obs: Na marmita de feijoada vai somente a feijoada.</span>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tamanho e Tipo do Marmitex</label>
+            <select class="form-control" id="marmitaSize" onchange="checkFeijoadaNotice(); calculateTotal();">
+              <optgroup label="Marmitas Tradicionais">
+                <option value="14" data-type="normal">Pequena Tradicional - R$ 14,00</option>
+                <option value="17" data-type="normal" selected>Média Tradicional - R$ 17,00</option>
+                <option value="20" data-type="normal">Grande Tradicional - R$ 20,00</option>
+              </optgroup>
+              <optgroup label="Marmitas de Feijoada (Especial Sábado)">
+                <option value="15" data-type="feijoada">Feijoada Pequena - R$ 15,00</option>
+                <option value="20" data-type="feijoada">Feijoada Média - R$ 20,00</option>
+                <option value="23" data-type="feijoada">Feijoada Grande - R$ 23,00</option>
+                <option value="50" data-type="feijoada">Porção Completa Feijoada - R$ 50,00</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantidade de Marmitas</label>
+            <input type="number" class="form-control" id="marmitaQty" value="1" min="1" max="20" oninput="calculateTotal()" required>
+          </div>
+
+          <div class="form-group">
+            <label>Adicional de Salada (+ R$ 8,00)</label>
+            <select class="form-control" id="extraSalad" onchange="calculateTotal()">
+              <option value="0">Não adicional</option>
+              <option value="8">Sim (+ R$ 8,00)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label>Observações ou Preferências de Pratos</label>
+          <input type="text" class="form-control" id="orderNotes" placeholder="Ex: Solicito com dobradinha / sem cebola / com fígado...">
+        </div>
+
+        <!-- Seção de Bebidas -->
+        <div class="form-section-subtitle">
+          <i class="fa-solid fa-bottle-water"></i> 2. Bebidas (Opcional)
+        </div>
+
+        <div id="drinksListContainer"></div>
+
+        <button type="button" class="btn-add-drink" onclick="addDrinkRow()">
+          <i class="fa-solid fa-plus"></i> Adicionar Bebida
+        </button>
+
+        <!-- Endereço de Entrega -->
+        <div class="form-section-subtitle" style="margin-top: 25px;">
+          <i class="fa-solid fa-location-dot"></i> 3. Endereço de Entrega
+        </div>
+
+        <!-- Badge de Endereço Carregado -->
+        <div id="savedAddressNotice" class="saved-address-badge">
+          <span><i class="fa-solid fa-floppy-disk"></i> Endereço do último pedido carregado automaticamente!</span>
+          <button type="button" class="btn-clear-address" onclick="clearSavedAddress()">Limpar</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Rua e Número</label>
+            <input type="text" class="form-control" id="deliveryStreet" placeholder="Ex: Rua Otacílio Ferreira da Silva, nº 254" required>
+          </div>
+
+          <div class="form-group">
+            <label>Bairro</label>
+            <select class="form-control" id="deliveryNeighborhood" onchange="calculateTotal()" required>
+              <option value="" disabled selected data-fee="0">Selecione o Bairro...</option>
+              <option value="Água Verde" data-fee="8">Água Verde - Taxa: R$ 8,00</option>
+              <option value="Araucária" data-fee="8">Araucária - Taxa: R$ 8,00</option>
+              <option value="Azaléia" data-fee="8">Azaléia - Taxa: R$ 8,00</option>
+              <option value="Centro" data-fee="8">Centro - Taxa: R$ 8,00</option>
+              <option value="Colina Verde" data-fee="8">Colina Verde - Taxa: R$ 8,00</option>
+              <option value="Dona Ivanira" data-fee="8">Dona Ivanira - Taxa: R$ 8,00</option>
+              <option value="Invernadinha (I e II)" data-fee="15">Invernadinha (I e II) - Taxa: R$ 15,00</option>
+              <option value="Lindouro" data-fee="8">Lindouro - Taxa: R$ 8,00</option>
+              <option value="Mazurechen" data-fee="8">Mazurechen - Taxa: R$ 8,00</option>
+              <option value="Nossa Senhora Aparecida" data-fee="8">Nossa Senhora Aparecida - Taxa: R$ 8,00</option>
+              <option value="Recanto Verde" data-fee="15">Recanto Verde - Taxa: R$ 15,00</option>
+              <option value="São Cristóvão" data-fee="8">São Cristóvão - Taxa: R$ 8,00</option>
+              <option value="São João" data-fee="8">São João - Taxa: R$ 8,00</option>
+              <option value="São José" data-fee="8">São José - Taxa: R$ 8,00</option>
+              <option value="Vila Baggio I e II" data-fee="8">Vila Baggio I e II - Taxa: R$ 8,00</option>
+              <option value="Vila Caldas" data-fee="8">Vila Caldas - Taxa: R$ 8,00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label>Complemento / Ponto de Referência</label>
+          <input type="text" class="form-control" id="deliveryComplement" placeholder="Ex: Apto 102, ao lado do mercado...">
+        </div>
+
+        <!-- Forma de Pagamento -->
+        <div class="form-section-subtitle">
+          <i class="fa-solid fa-credit-card"></i> 4. Forma de Pagamento
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Método de Pagamento</label>
+            <select class="form-control" id="paymentMethod" onchange="toggleTrocoField()" required>
+              <option value="" disabled selected>Selecione a forma de pagamento...</option>
+              <option value="Pix">Pix (Chave informada no pedido)</option>
+              <option value="Cartão de Crédito/Débito">Cartão de Crédito / Débito (Na entrega)</option>
+              <option value="Dinheiro">Dinheiro</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="trocoContainer">
+            <label>Precisa de Troco?</label>
+            <input type="text" class="form-control" id="trocoAmount" placeholder="Ex: Troco para R$ 50,00 ou Não precisa">
+          </div>
+        </div>
+
+        <!-- Resumo do Cálculo Total -->
+        <div class="total-summary-card">
+          <div class="summary-row">
+            <span>Subtotal Marmita + Salada:</span>
+            <span id="subtotalMarmitaDisplay">R$ 17,00</span>
+          </div>
+          <div class="summary-row">
+            <span>Subtotal Bebidas:</span>
+            <span id="subtotalBebidasDisplay">R$ 0,00</span>
+          </div>
+          <div class="summary-row">
+            <span>Taxa de Entrega:</span>
+            <span id="deliveryFeeDisplay">R$ 0,00</span>
+          </div>
+          <div class="summary-row total-final">
+            <span>VALOR TOTAL:</span>
+            <span id="grandTotalDisplay">R$ 17,00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit-order">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
+          Enviar Pedido para (42) 99862-5609
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p><i class="fa-brands fa-whatsapp"></i> WhatsApp / Pedidos: <a href="https://wa.me/5542998625609" target="_blank">(42) 99862-5609</a></p>
+    <p>© 2026 Restaurante Avenida. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Tabela de Preços das Bebidas
+    const drinksCatalog = [
+      { name: "Água com Gás", price: 3.50 },
+      { name: "Coca Caçulinha", price: 3.00 },
+      { name: "Coca Caçulinha Zero", price: 3.00 },
+      { name: "Coca Lata 350ml", price: 6.00 },
+      { name: "Coca Lata Zero 350ml", price: 6.00 },
+      { name: "Guaraná Lata 350ml", price: 6.00 },
+      { name: "Guaraná Lata Zero 350ml", price: 6.00 },
+      { name: "Sprite Lata 350ml", price: 6.00 },
+      { name: "Sprite Lata Zero 350ml", price: 6.00 },
+      { name: "Coca 600ml", price: 8.00 },
+      { name: "Guaraná 600ml", price: 8.00 },
+      { name: "Guaraná 600ml Zero", price: 8.00 },
+      { name: "Sprite 600ml", price: 8.00 },
+      { name: "Suco Prats Uva 330ml", price: 8.00 },
+      { name: "Suco Prats Laranja 330ml", price: 8.00 },
+      { name: "Coca 1L", price: 10.00 },
+      { name: "Coca 2L", price: 15.00 }
+    ];
+
+    // Dados do Cardápio Semanal
+    const menuData = {
+      segunda: {
+        title: "Cardápio de Segunda-Feira",
+        pratos: [
+          "Arroz",
+          "Feijão",
+          "Virado de feijão",
+          "Macarrão molho vermelho",
+          "Frango assado",
+          "Bife na chapa",
+          "Farofa",
+          "Mandioca cozida",
+          "Bolinho de arroz frito"
+        ],
+        obs: "Batata frita disponível no salão (NÃO ACOMPANHA NA MARMITA).",
+        saladas: "8 tipos de saladas selecionadas com maionese caseira 😋"
+      },
+      terca: {
+        title: "Cardápio de Terça-Feira",
+        pratos: [
+          "Arroz",
+          "Feijão",
+          "Quirera",
+          "Frango à passarinho crocante",
+          "Macarrão parafuso ao alho e óleo",
+          "Pernil suíno",
+          "Fígado empanado (Opcional na marmita)",
+          "Farofa",
+          "Batata doce frita"
+        ],
+        obs: "O fígado é opcional na marmita (solicitar nas observações). Batata frita NÃO ACOMPANHA NA MARMITA.",
+        saladas: "6 tipos de saladas selecionadas incluindo maionese 😋"
+      },
+      quarta: {
+        title: "Cardápio de Quarta-Feira",
+        pratos: [
+          "Arroz",
+          "Feijão",
+          "Macarrão ao molho vermelho",
+          "Polenta cozida",
+          "Frango ao molho 🍗",
+          "Bisteca de porco empanada",
+          "Farofa",
+          "Mandioca frita",
+          "Lasanha à Bolonhesa (Não acompanha marmita)"
+        ],
+        obs: "Lasanha à Bolonhesa disponível apenas para consumo no salão.",
+        saladas: "6 opções de saladas frescas"
+      },
+      quinta: {
+        title: "Cardápio de Quinta-Feira",
+        pratos: [
+          "Arroz",
+          "Feijão",
+          "Farofa",
+          "Batata cozida 🥔",
+          "Macarrão penne ao molho branco",
+          "DOBRADINHA (Precisa ser solicitada)",
+          "Bife na chapa 🥩",
+          "Frango frito 🍗",
+          "Polenta frita"
+        ],
+        obs: "IMPORTANTE: Dobradinha na marmita precisa ser expressamente solicitada.",
+        saladas: "Saladas fresquinhas e variadas 🥗"
+      },
+      sexta: {
+        title: "Cardápio de Sexta-Feira",
+        pratos: [
+          "Arroz",
+          "Feijão",
+          "Purê de batata",
+          "Macarrão molho vermelho",
+          "Farofa",
+          "STROGONOFF DE GADO 🍖",
+          "Sassami empanado",
+          "Batata palha"
+        ],
+        obs: "Batata frita NÃO ACOMPANHA NA MARMITA.",
+        saladas: "8 tipos de salada selecionados com maionese caseira 🥗"
+      },
+      sabado: {
+        title: "Cardápio de Sábado - Especial Feijoada",
+        pratos: [
+          "FEIJOADA ESPECIAL 😋",
+          "Arroz",
+          "Feijão tradicional",
+          "Couve refogada",
+          "Farofa",
+          "Batata doce caramelizada",
+          "Banana frita",
+          "Frango assado",
+          "Costela suína à pururuca assada",
+          "Torresmo crocante"
+        ],
+        obs: "Na marmita de feijoada vai somente a feijoada.",
+        saladas: "Vinagrete, Laranja, Alface e Maionese"
+      }
+    };
+
+    // GERENCIAMENTO DE BEBIDAS
+    function addDrinkRow() {
+      const container = document.getElementById('drinksListContainer');
+      const rowId = `drinkRow_${Date.now()}`;
+
+      let optionsHtml = `<option value="" disabled selected>Selecione a bebida...</option>`;
+      drinksCatalog.forEach(d => {
+        optionsHtml += `<option value="${d.price}" data-name="${d.name}">${d.name} - R$ ${d.price.toFixed(2).replace('.', ',')}</option>`;
+      });
+
+      const rowHtml = `
+        <div class="drink-row" id="${rowId}">
+          <select class="form-control drink-select" onchange="calculateTotal()">
+            ${optionsHtml}
+          </select>
+          <input type="number" class="form-control drink-qty" value="1" min="1" max="10" placeholder="Qtd" oninput="calculateTotal()">
+          <button type="button" class="btn-remove-drink" onclick="removeDrinkRow('${rowId}')">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `;
+
+      container.insertAdjacentHTML('beforeend', rowHtml);
+      calculateTotal();
+    }
+
+    function removeDrinkRow(rowId) {
+      const row = document.getElementById(rowId);
+      if (row) {
+        row.remove();
+        calculateTotal();
+      }
+    }
+
+    function getSelectedDrinks() {
+      const rows = document.querySelectorAll('.drink-row');
+      const drinksList = [];
+      let totalBebidas = 0;
+
+      rows.forEach(row => {
+        const select = row.querySelector('.drink-select');
+        const qtyInput = row.querySelector('.drink-qty');
+
+        const price = parseFloat(select.value) || 0;
+        const qty = parseInt(qtyInput.value) || 1;
+        const selectedOption = select.options[select.selectedIndex];
+        const name = selectedOption ? selectedOption.getAttribute('data-name') : '';
+
+        if (price > 0 && name) {
+          const itemTotal = price * qty;
+          totalBebidas += itemTotal;
+          drinksList.push({ name, price, qty, itemTotal });
+        }
+      });
+
+      return { drinksList, totalBebidas };
+    }
+
+    // LOCALSTORAGE (Endereço)
+    function saveAddressToStorage(street, neighborhood, complement) {
+      const addressData = { street, neighborhood, complement };
+      localStorage.setItem('avenida_user_address', JSON.stringify(addressData));
+    }
+
+    function loadSavedAddress() {
+      const savedData = localStorage.getItem('avenida_user_address');
+      if (savedData) {
+        try {
+          const { street, neighborhood, complement } = JSON.parse(savedData);
+          if (street) document.getElementById('deliveryStreet').value = street;
+          if (neighborhood) document.getElementById('deliveryNeighborhood').value = neighborhood;
+          if (complement) document.getElementById('deliveryComplement').value = complement;
+
+          document.getElementById('savedAddressNotice').style.display = 'flex';
+          calculateTotal();
+        } catch (e) {
+          console.error("Erro ao carregar endereço", e);
+        }
+      }
+    }
+
+    function clearSavedAddress() {
+      localStorage.removeItem('avenida_user_address');
+      document.getElementById('deliveryStreet').value = '';
+      document.getElementById('deliveryNeighborhood').selectedIndex = 0;
+      document.getElementById('deliveryComplement').value = '';
+      document.getElementById('savedAddressNotice').style.display = 'none';
+      calculateTotal();
+    }
+
+    // Exibe o aviso se for selecionada uma marmita de feijoada
+    function checkFeijoadaNotice() {
+      const select = document.getElementById('marmitaSize');
+      const selectedOption = select.options[select.selectedIndex];
+      const isFeijoada = selectedOption.getAttribute('data-type') === 'feijoada';
+      
+      const notice = document.getElementById('feijoadaNotice');
+      notice.style.display = isFeijoada ? 'flex' : 'none';
+    }
+
+    // Renderiza o cardápio
+    function displayMenu(dayKey) {
+      const data = menuData[dayKey];
+      if (!data) return;
+
+      document.getElementById('menuDayTitle').innerText = data.title;
+
+      let html = `
+        <div>
+          <div class="menu-column-title">
+            <i class="fa-solid fa-fire-burner"></i> Acompanhamentos & Carnes
+          </div>
+          <ul class="dishes-list">
+      `;
+
+      data.pratos.forEach(item => {
+        html += `
+          <li class="dish-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>${item}</span>
+          </li>
+        `;
+      });
+
+      html += `
+          </ul>
+        </div>
+
+        <div>
+          <div class="menu-column-title">
+            <i class="fa-solid fa-leaf"></i> Saladas & Informações
+          </div>
+          <div class="menu-notes-box">
+            <p style="font-weight: 700; color: #fff;">
+              <i class="fa-solid fa-carrot" style="color: var(--accent-gold);"></i> ${data.saladas}
+            </p>
+            ${data.obs ? `
+              <div class="note-tag">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>${data.obs}</span>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('menuGrid').innerHTML = html;
+    }
+
+    // Calcular valores em tempo real
+    function calculateTotal() {
+      const selectElement = document.getElementById('marmitaSize');
+      const pricePerUnit = parseFloat(selectElement.value) || 0;
+      const qty = parseInt(document.getElementById('marmitaQty').value) || 1;
+      const saladFee = parseFloat(document.getElementById('extraSalad').value) || 0;
+
+      const subtotalMarmita = (pricePerUnit * qty) + saladFee;
+
+      // Bebidas
+      const drinksData = getSelectedDrinks();
+      const subtotalBebidas = drinksData.totalBebidas;
+
+      // Taxa de entrega
+      const neighborhoodSelect = document.getElementById('deliveryNeighborhood');
+      const selectedOption = neighborhoodSelect.options[neighborhoodSelect.selectedIndex];
+      const deliveryFee = parseFloat(selectedOption.getAttribute('data-fee')) || 0;
+
+      const grandTotal = subtotalMarmita + subtotalBebidas + deliveryFee;
+
+      document.getElementById('subtotalMarmitaDisplay').innerText = `R$ ${subtotalMarmita.toFixed(2).replace('.', ',')}`;
+      document.getElementById('subtotalBebidasDisplay').innerText = `R$ ${subtotalBebidas.toFixed(2).replace('.', ',')}`;
+      document.getElementById('deliveryFeeDisplay').innerText = `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`;
+      document.getElementById('grandTotalDisplay').innerText = `R$ ${grandTotal.toFixed(2).replace('.', ',')}`;
+
+      return { subtotalMarmita, subtotalBebidas, deliveryFee, grandTotal, drinksList: drinksData.drinksList };
+    }
+
+    // Alternar exibição do campo de Troco
+    function toggleTrocoField() {
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const trocoContainer = document.getElementById('trocoContainer');
+      const trocoInput = document.getElementById('trocoAmount');
+
+      if (paymentMethod === 'Dinheiro') {
+        trocoContainer.style.display = 'flex';
+        trocoInput.required = true;
+      } else {
+        trocoContainer.style.display = 'none';
+        trocoInput.required = false;
+        trocoInput.value = '';
+      }
+    }
+
+    // Pega o dia da semana atual
+    function getCurrentDayKey() {
+      const dayIndex = new Date().getDay();
+      const days = ['sabado', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+      return days[dayIndex];
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = getCurrentDayKey();
+      const buttons = document.querySelectorAll('.day-btn');
+
+      buttons.forEach(btn => {
+        const day = btn.getAttribute('data-day');
+
+        if (day === today) {
+          btn.classList.add('is-today');
+          btn.classList.add('active');
+          displayMenu(day);
+        }
+
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          displayMenu(day);
+        });
+      });
+
+      // Se for domingo, carrega segunda-feira
+      if (!document.querySelector('.day-btn.active')) {
+        const segundaBtn = document.querySelector('.day-btn[data-day="segunda"]');
+        if (segundaBtn) {
+          segundaBtn.classList.add('active');
+          displayMenu('segunda');
+        }
+      }
+
+      // Tenta carregar endereço prévio salvo do cliente
+      loadSavedAddress();
+      checkFeijoadaNotice();
+      calculateTotal();
+    });
+
+    // PASSO 3: Enviar mensagem no WhatsApp E disparar para o servidor de impressão automática
+    async function sendOrder(e) {
+      e.preventDefault();
+
+      const selectElement = document.getElementById('marmitaSize');
+      const selectedOption = selectElement.options[selectElement.selectedIndex];
+      const selectedLabel = selectedOption.text;
+      const isFeijoada = selectedOption.getAttribute('data-type') === 'feijoada';
+
+      const qty = document.getElementById('marmitaQty').value;
+      const saladFee = document.getElementById('extraSalad').value;
+      const extraSaladLabel = saladFee === '8' ? 'Sim (+ R$ 8,00)' : 'Não';
+      const notes = document.getElementById('orderNotes').value;
+
+      // Dados de endereço
+      const street = document.getElementById('deliveryStreet').value;
+      const neighborhood = document.getElementById('deliveryNeighborhood').value;
+      const complement = document.getElementById('deliveryComplement').value;
+
+      // Salva o endereço para as próximas compras deste cliente
+      saveAddressToStorage(street, neighborhood, complement);
+
+      // Forma de Pagamento
+      const payment = document.getElementById('paymentMethod').value;
+      const troco = document.getElementById('trocoAmount').value;
+
+      // Cálculo final
+      const totals = calculateTotal();
+
+      // Objeto formatado para envio ao Servidor de Impressão (PASSO 3)
+      const payloadPedido = {
+        marmita: selectedLabel,
+        qtd: qty,
+        salada: extraSaladLabel,
+        observacoes: notes,
+        bebidas: totals.drinksList,
+        rua: street,
+        bairro: neighborhood,
+        complemento: complement,
+        pagamento: payment,
+        troco: troco,
+        totals: totals
+      };
+
+      // Dispara a requisição silenciosa para o backend local (Passo 1 / Passo 2)
+      try {
+        fetch('http://localhost:3000/api/pedidos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payloadPedido)
+        });
+      } catch (err) {
+        console.warn("Servidor de impressão não detectado localmente.", err);
+      }
+
+      // Monta e envia a mensagem para o WhatsApp do restaurante
+      let msg = `Olá, *Restaurante Avenida*! Gostaria de realizar um pedido:\n\n`;
+      msg += `🍱 *Marmita:* ${selectedLabel}\n`;
+      msg += `🔢 *Quantidade:* ${qty}\n`;
+      msg += `🥗 *Adicional de Salada:* ${extraSaladLabel}\n`;
+      
+      if (isFeijoada) {
+        msg += `⚠️ *Aviso:* Na marmita de feijoada vai somente a feijoada.\n`;
+      }
+
+      if (notes.trim() !== "") {
+        msg += `📝 *Observações:* ${notes}\n`;
+      }
+
+      if (totals.drinksList.length > 0) {
+        msg += `\n🥤 *BEBIDAS:*\n`;
+        totals.drinksList.forEach(d => {
+          msg += `• ${d.qty}x ${d.name} (R$ ${d.itemTotal.toFixed(2).replace('.', ',')})\n`;
+        });
+      }
+
+      msg += `\n📍 *ENDEREÇO DE ENTREGA:*\n`;
+      msg += `🏠 *Rua/Número:* ${street}\n`;
+      msg += `🏘️ *Bairro:* ${neighborhood}\n`;
+      if (complement.trim() !== "") {
+        msg += `📌 *Complemento/Ref:* ${complement}\n`;
+      }
+
+      msg += `\n💳 *FORMA DE PAGAMENTO:*\n`;
+      msg += `💰 *Método:* ${payment}\n`;
+      if (payment === 'Dinheiro' && troco.trim() !== "") {
+        msg += `💵 *Troco para:* ${troco}\n`;
+      }
+
+      msg += `\n💵 *VALOR DO PEDIDO:*\n`;
+      msg += `▫️ Subtotal Marmita: R$ ${totals.subtotalMarmita.toFixed(2).replace('.', ',')}\n`;
+      if (totals.subtotalBebidas > 0) {
+        msg += `▫️ Subtotal Bebidas: R$ ${totals.subtotalBebidas.toFixed(2).replace('.', ',')}\n`;
+      }
+      msg += `▫️ Taxa de Entrega (${neighborhood}): R$ ${totals.deliveryFee.toFixed(2).replace('.', ',')}\n`;
+      msg += `⭐ *TOTAL FINAL: R$ ${totals.grandTotal.toFixed(2).replace('.', ',')}*\n`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://wa.me/5542998625609?text=${encodedMsg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
