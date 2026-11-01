@@ -275,6 +275,35 @@
       color: #ffffff;
     }
 
+    /* Tabs dos Períodos (Almoço / Noite) */
+    .period-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .period-btn {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .period-btn.active {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+    }
+
     /* Tabs dos Dias */
     .day-selector {
       display: flex;
@@ -490,14 +519,7 @@
       background: rgba(229, 169, 60, 0.3);
     }
 
-    /* Simulador de Pedido */
-    .order-box {
-      background: var(--card-dark);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 35px;
-    }
-
+    /* Formulários de Pedido */
     .form-section-subtitle {
       font-size: 1rem;
       font-weight: 700;
@@ -584,7 +606,6 @@
       color: var(--accent-gold);
     }
 
-    /* Troco Container Smooth Transition */
     #trocoContainer {
       display: none;
       transition: var(--transition);
@@ -614,7 +635,14 @@
       transform: translateY(-2px);
     }
 
-    /* Footer */
+    /* Simulador de Pedido */
+    .order-box {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 35px;
+    }
+
     footer {
       text-align: center;
       padding-top: 60px;
@@ -632,24 +660,12 @@
       font-weight: 700;
     }
 
-    /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .brand-title {
-        font-size: 2.3rem;
-      }
-      .feijoada-banner {
-        flex-direction: column;
-        text-align: center;
-      }
-      .menu-display {
-        padding: 20px;
-      }
-      .drink-row {
-        flex-direction: column;
-      }
-      .drink-row select, .drink-row input, .btn-remove-drink {
-        width: 100%;
-      }
+      .brand-title { font-size: 2.3rem; }
+      .feijoada-banner { flex-direction: column; text-align: center; }
+      .menu-display { padding: 20px; }
+      .drink-row { flex-direction: column; }
+      .drink-row select, .drink-row input, .btn-remove-drink { width: 100%; }
     }
   </style>
 </head>
@@ -658,7 +674,7 @@
   <!-- Barra Superior -->
   <div class="announcement-bar">
     <i class="fa-solid fa-utensils"></i>
-    <span>Marmitex caseira feita diariamente com ingredientes frescos e selecionados!</span>
+    <span>Almoço (11h-13h30) e Noite (18h30-21h20) | Exceto Domingo!</span>
   </div>
 
   <!-- Hero Header -->
@@ -675,7 +691,7 @@
       </div>
 
       <h1 class="brand-title">RESTAURANTE <span>AVENIDA</span></h1>
-      <p class="brand-subtitle">Tradição em servir bem. Confira nosso cardápio semanal completo e monte seu pedido rapidamente abaixo.</p>
+      <p class="brand-subtitle">Tradição em servir bem. Confira nossos cardápios de Almoço e Jantar abaixo.</p>
     </div>
   </header>
 
@@ -725,7 +741,17 @@
     <!-- Navegação e Exibição do Cardápio Semanal -->
     <section>
       <div class="section-header">
-        <h2 class="section-title">Cardápio da Semana</h2>
+        <h2 class="section-title">Cardápio Semanal</h2>
+      </div>
+
+      <!-- Seletor de Período (Almoço ou Noite) -->
+      <div class="period-selector">
+        <button class="period-btn active" id="btnPeriodAlmoco" onclick="switchPeriod('almoco')">
+          <i class="fa-solid fa-sun"></i> Almoço (11h - 13h30)
+        </button>
+        <button class="period-btn" id="btnPeriodNoite" onclick="switchPeriod('noite')">
+          <i class="fa-solid fa-moon"></i> Noite / Jantar (18h30 - 21h20)
+        </button>
       </div>
 
       <!-- Tabs dos Dias -->
@@ -764,7 +790,7 @@
         
         <!-- Detalhes da Marmita -->
         <div class="form-section-subtitle">
-          <i class="fa-solid fa-box-open"></i> 1. Escolha a Marmita
+          1. <i class="fa-solid fa-box-open"></i>Escolha a Marmita
         </div>
 
         <!-- Alerta dinâmico de Feijoada -->
@@ -946,105 +972,103 @@
       { name: "Coca 2L", price: 15.00 }
     ];
 
-    // Dados do Cardápio Semanal
+    // Cardápios Divididos por Período (Almoço e Noite)
     const menuData = {
-      segunda: {
-        title: "Cardápio de Segunda-Feira",
-        pratos: [
-          "Arroz",
-          "Feijão",
-          "Virado de feijão",
-          "Macarrão molho vermelho",
-          "Frango assado",
-          "Bife na chapa",
-          "Farofa",
-          "Mandioca cozida",
-          "Bolinho de arroz frito"
-        ],
-        obs: "Batata frita disponível no salão (NÃO ACOMPANHA NA MARMITA).",
-        saladas: "8 tipos de saladas selecionadas com maionese caseira 😋"
+      almoco: {
+        segunda: {
+          title: "Almoço de Segunda-Feira",
+          pratos: ["Arroz", "Feijão", "Virado de feijão", "Macarrão molho vermelho", "Frango assado", "Bife na chapa", "Farofa", "Mandioca cozida", "Bolinho de arroz frito"],
+          obs: "Batata frita disponível no salão (NÃO ACOMPANHA NA MARMITA).",
+          saladas: "8 tipos de saladas selecionadas com maionese caseira 😋"
+        },
+        terca: {
+          title: "Almoço de Terça-Feira",
+          pratos: ["Arroz", "Feijão", "Quirera", "Frango à passarinho crocante", "Macarrão parafuso ao alho e óleo", "Pernil suíno", "Fígado empanado (Opcional)", "Farofa", "Batata doce frita"],
+          obs: "O fígado é opcional na marmita. Batata frita NÃO ACOMPANHA NA MARMITA.",
+          saladas: "6 tipos de saladas selecionadas incluindo maionese 😋"
+        },
+        quarta: {
+          title: "Almoço de Quarta-Feira",
+          pratos: ["Arroz", "Feijão", "Macarrão ao molho vermelho", "Polenta cozida", "Frango ao molho 🍗", "Bisteca de porco empanada", "Farofa", "Mandioca frita", "Lasanha à Bolonhesa (Salão apenas)"],
+          obs: "Lasanha à Bolonhesa disponível apenas para consumo no salão.",
+          saladas: "6 opções de saladas frescas"
+        },
+        quinta: {
+          title: "Almoço de Quinta-Feira",
+          pratos: ["Arroz", "Feijão", "Farofa", "Batata cozida 🥔", "Macarrão penne ao molho branco", "DOBRADINHA (Solicitar)", "Bife na chapa 🥩", "Frango frito 🍗", "Polenta frita"],
+          obs: "IMPORTANTE: Dobradinha na marmita precisa ser expressamente solicitada.",
+          saladas: "Saladas fresquinhas e variadas 🥗"
+        },
+        sexta: {
+          title: "Almoço de Sexta-Feira",
+          pratos: ["Arroz", "Feijão", "Purê de batata", "Macarrão molho vermelho", "Farofa", "STROGONOFF DE GADO 🍖", "Sassami empanado", "Batata palha"],
+          obs: "Batata frita NÃO ACOMPANHA NA MARMITA.",
+          saladas: "8 tipos de salada selecionados com maionese caseira 🥗"
+        },
+        sabado: {
+          title: "Almoço de Sábado - Especial Feijoada",
+          pratos: ["FEIJOADA ESPECIAL 😋", "Arroz", "Feijão tradicional", "Couve refogada", "Farofa", "Batata doce caramelizada", "Banana frita", "Frango assado", "Costela suína à pururuca", "Torresmo crocante"],
+          obs: "Na marmita de feijoada vai somente a feijoada.",
+          saladas: "Vinagrete, Laranja, Alface e Maionese"
+        }
       },
-      terca: {
-        title: "Cardápio de Terça-Feira",
-        pratos: [
-          "Arroz",
-          "Feijão",
-          "Quirera",
-          "Frango à passarinho crocante",
-          "Macarrão parafuso ao alho e óleo",
-          "Pernil suíno",
-          "Fígado empanado (Opcional na marmita)",
-          "Farofa",
-          "Batata doce frita"
-        ],
-        obs: "O fígado é opcional na marmita (solicitar nas observações). Batata frita NÃO ACOMPANHA NA MARMITA.",
-        saladas: "6 tipos de saladas selecionadas incluindo maionese 😋"
-      },
-      quarta: {
-        title: "Cardápio de Quarta-Feira",
-        pratos: [
-          "Arroz",
-          "Feijão",
-          "Macarrão ao molho vermelho",
-          "Polenta cozida",
-          "Frango ao molho 🍗",
-          "Bisteca de porco empanada",
-          "Farofa",
-          "Mandioca frita",
-          "Lasanha à Bolonhesa (Não acompanha marmita)"
-        ],
-        obs: "Lasanha à Bolonhesa disponível apenas para consumo no salão.",
-        saladas: "6 opções de saladas frescas"
-      },
-      quinta: {
-        title: "Cardápio de Quinta-Feira",
-        pratos: [
-          "Arroz",
-          "Feijão",
-          "Farofa",
-          "Batata cozida 🥔",
-          "Macarrão penne ao molho branco",
-          "DOBRADINHA (Precisa ser solicitada)",
-          "Bife na chapa 🥩",
-          "Frango frito 🍗",
-          "Polenta frita"
-        ],
-        obs: "IMPORTANTE: Dobradinha na marmita precisa ser expressamente solicitada.",
-        saladas: "Saladas fresquinhas e variadas 🥗"
-      },
-      sexta: {
-        title: "Cardápio de Sexta-Feira",
-        pratos: [
-          "Arroz",
-          "Feijão",
-          "Purê de batata",
-          "Macarrão molho vermelho",
-          "Farofa",
-          "STROGONOFF DE GADO 🍖",
-          "Sassami empanado",
-          "Batata palha"
-        ],
-        obs: "Batata frita NÃO ACOMPANHA NA MARMITA.",
-        saladas: "8 tipos de salada selecionados com maionese caseira 🥗"
-      },
-      sabado: {
-        title: "Cardápio de Sábado - Especial Feijoada",
-        pratos: [
-          "FEIJOADA ESPECIAL 😋",
-          "Arroz",
-          "Feijão tradicional",
-          "Couve refogada",
-          "Farofa",
-          "Batata doce caramelizada",
-          "Banana frita",
-          "Frango assado",
-          "Costela suína à pururuca assada",
-          "Torresmo crocante"
-        ],
-        obs: "Na marmita de feijoada vai somente a feijoada.",
-        saladas: "Vinagrete, Laranja, Alface e Maionese"
+      noite: {
+        segunda: {
+          title: "Noite de Segunda-Feira",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        },
+        terca: {
+          title: "Noite de Terça-Feira",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        },
+        quarta: {
+          title: "Noite de Quarta-Feira",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        },
+        quinta: {
+          title: "Noite de Quinta-Feira",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        },
+        sexta: {
+          title: "Noite de Sexta-Feira",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        },
+        sabado: {
+          title: "Noite de Sábado",
+          pratos: ["Prato Feito / Marmitex da Noite", "Opções de Lanches e Porções", "Acompanhamentos Especiais da Noite"],
+          obs: "Consulte disponibilidade de porções pelo WhatsApp.",
+          saladas: "Salada fresca da noite"
+        }
       }
     };
+
+    let currentPeriod = 'almoco';
+    let currentDay = 'segunda';
+
+    function switchPeriod(period) {
+      currentPeriod = period;
+      document.getElementById('btnPeriodAlmoco').classList.toggle('active', period === 'almoco');
+      document.getElementById('btnPeriodNoite', period === 'noite').classList.toggle('active', period === 'noite');
+      // Ajuste visual dos botões de período
+      if(period === 'almoco') {
+        document.getElementById('btnPeriodAlmoco').classList.add('active');
+        document.getElementById('btnPeriodNoite').classList.remove('active');
+      } else {
+        document.getElementById('btnPeriodNoite').classList.add('active');
+        document.getElementById('btnPeriodAlmoco').classList.remove('active');
+      }
+      displayMenu(currentDay);
+    }
 
     // GERENCIAMENTO DE BEBIDAS
     function addDrinkRow() {
@@ -1136,7 +1160,6 @@
       calculateTotal();
     }
 
-    // Exibe o aviso se for selecionada uma marmita de feijoada
     function checkFeijoadaNotice() {
       const select = document.getElementById('marmitaSize');
       const selectedOption = select.options[select.selectedIndex];
@@ -1148,7 +1171,10 @@
 
     // Renderiza o cardápio
     function displayMenu(dayKey) {
-      const data = menuData[dayKey];
+      currentDay = dayKey;
+      const periodObj = menuData[currentPeriod];
+      if (!periodObj) return;
+      const data = periodObj[dayKey];
       if (!data) return;
 
       document.getElementById('menuDayTitle').innerText = data.title;
@@ -1156,7 +1182,7 @@
       let html = `
         <div>
           <div class="menu-column-title">
-            <i class="fa-solid fa-fire-burner"></i> Acompanhamentos & Carnes
+            <i class="fa-solid fa-fire-burner"></i> Acompanhamentos & Pratos
           </div>
           <ul class="dishes-list">
       `;
@@ -1195,7 +1221,6 @@
       document.getElementById('menuGrid').innerHTML = html;
     }
 
-    // Calcular valores em tempo real
     function calculateTotal() {
       const selectElement = document.getElementById('marmitaSize');
       const pricePerUnit = parseFloat(selectElement.value) || 0;
@@ -1204,11 +1229,9 @@
 
       const subtotalMarmita = (pricePerUnit * qty) + saladFee;
 
-      // Bebidas
       const drinksData = getSelectedDrinks();
       const subtotalBebidas = drinksData.totalBebidas;
 
-      // Taxa de entrega
       const neighborhoodSelect = document.getElementById('deliveryNeighborhood');
       const selectedOption = neighborhoodSelect.options[neighborhoodSelect.selectedIndex];
       const deliveryFee = parseFloat(selectedOption.getAttribute('data-fee')) || 0;
@@ -1223,7 +1246,6 @@
       return { subtotalMarmita, subtotalBebidas, deliveryFee, grandTotal, drinksList: drinksData.drinksList };
     }
 
-    // Alternar exibição do campo de Troco
     function toggleTrocoField() {
       const paymentMethod = document.getElementById('paymentMethod').value;
       const trocoContainer = document.getElementById('trocoContainer');
@@ -1239,10 +1261,9 @@
       }
     }
 
-    // Pega o dia da semana atual
     function getCurrentDayKey() {
       const dayIndex = new Date().getDay();
-      const days = ['sabado', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+      const days = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
       return days[dayIndex];
     }
 
@@ -1267,7 +1288,6 @@
         });
       });
 
-      // Se for domingo, carrega segunda-feira
       if (!document.querySelector('.day-btn.active')) {
         const segundaBtn = document.querySelector('.day-btn[data-day="segunda"]');
         if (segundaBtn) {
@@ -1276,15 +1296,37 @@
         }
       }
 
-      // Tenta carregar endereço prévio salvo do cliente
       loadSavedAddress();
       checkFeijoadaNotice();
       calculateTotal();
     });
 
-    // PASSO 3: Enviar mensagem no WhatsApp E disparar para o servidor de impressão automática
+    // Validação de Horários e Envio do Pedido
     async function sendOrder(e) {
       e.preventDefault();
+
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0 = Domingo
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const currentTimeDecimal = hours + (minutes / 60);
+
+      // Regra 1: Fechado aos domingos
+      if (dayOfWeek === 0) {
+        alert("O Restaurante Avenida está fechado aos domingos. Volte na segunda-feira!");
+        return;
+      }
+
+      // Regra 2: Validação de horários
+      // Almoço: 11:00 (11.0) até 13:30 (13.5)
+      // Noite: 18:30 (18.5) até 21:20 (21.33)
+      const isAlmocoTime = (currentTimeDecimal >= 11.0 && currentTimeDecimal <= 13.5);
+      const isNoiteTime = (currentTimeDecimal >= 18.5 && currentTimeDecimal <= 21.33);
+
+      if (!isAlmocoTime && !isNoiteTime) {
+        alert("Pedidos encerrados no momento!\n\nHorários de funcionamento:\n- Almoço: 11:00 às 13:30\n- Jantar: 18:30 às 21:20");
+        return;
+      }
 
       const selectElement = document.getElementById('marmitaSize');
       const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -1296,23 +1338,19 @@
       const extraSaladLabel = saladFee === '8' ? 'Sim (+ R$ 8,00)' : 'Não';
       const notes = document.getElementById('orderNotes').value;
 
-      // Dados de endereço
       const street = document.getElementById('deliveryStreet').value;
       const neighborhood = document.getElementById('deliveryNeighborhood').value;
       const complement = document.getElementById('deliveryComplement').value;
 
-      // Salva o endereço para as próximas compras deste cliente
       saveAddressToStorage(street, neighborhood, complement);
 
-      // Forma de Pagamento
       const payment = document.getElementById('paymentMethod').value;
       const troco = document.getElementById('trocoAmount').value;
 
-      // Cálculo final
       const totals = calculateTotal();
 
-      // Objeto formatado para envio ao Servidor de Impressão (PASSO 3)
       const payloadPedido = {
+        periodo: currentPeriod,
         marmita: selectedLabel,
         qtd: qty,
         salada: extraSaladLabel,
@@ -1326,7 +1364,6 @@
         totals: totals
       };
 
-      // Dispara a requisição silenciosa para o backend local (Passo 1 / Passo 2)
       try {
         fetch('http://localhost:3000/api/pedidos', {
           method: 'POST',
@@ -1337,8 +1374,8 @@
         console.warn("Servidor de impressão não detectado localmente.", err);
       }
 
-      // Monta e envia a mensagem para o WhatsApp do restaurante
       let msg = `Olá, *Restaurante Avenida*! Gostaria de realizar um pedido:\n\n`;
+      msg += `🕒 *Período:* ${currentPeriod === 'almoco' ? 'Almoço' : 'Noite'}\n`;
       msg += `🍱 *Marmita:* ${selectedLabel}\n`;
       msg += `🔢 *Quantidade:* ${qty}\n`;
       msg += `🥗 *Adicional de Salada:* ${extraSaladLabel}\n`;
